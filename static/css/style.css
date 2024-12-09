@@ -26,6 +26,17 @@
   z-index: -1;
 }
 
+.hero-image {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -39,4 +50,12 @@
 
 header {
   z-index: 1000;
+}
+
+main {
+  transition: filter 0.3s ease; /* Smooth transition for the blur effect */
+}
+
+.main {
+  filter: blur(20px);
 }

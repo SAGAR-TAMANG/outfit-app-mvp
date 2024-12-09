@@ -4,6 +4,11 @@ from .forms import LoginForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.http import url_has_allowed_host_and_scheme
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import UserProfile
 
 from dotenv import load_dotenv
 import os
@@ -15,31 +20,30 @@ from google.oauth2 import id_token
 
 # Create your views here.
 def login_view(request):
-  msg = None
-
-  if request.method == 'POST':
-    form = LoginForm(request.POST)
-    if form.is_valid():
-      print("############### FORM BEGINS ###############")
-      username = form.cleaned_data.get("username")
-      # email = form.cleaned_data.get("email")
-      password = form.cleaned_data.get("password")
-      print(username)
-      print(password)
-      user = authenticate(username=username, password=password)
-      print(user)
-      if user:
-        msg='Success'
-        login(request, user)
-        return redirect('index')
-      else:
-        msg='Fail'
+    msg = None
+    redirect_url = request.GET.get('next', 'index')  # Default to 'index' if no 'next' parameter
+    
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                # Redirect to 'next' if it's safe, otherwise redirect to 'index'
+                if url_has_allowed_host_and_scheme(redirect_url, allowed_hosts={request.get_host()}):
+                    return redirect(redirect_url)
+                return redirect('index')
+            else:
+                msg = 'Invalid username or password.'
+        else:
+            msg = "Error validating form. Please try again."
     else:
-      msg = "Error validating form. Please try again."
-  else:
-    form = LoginForm()
-  
-  return render(request, 'accounts/login.html', context={'form': form, 'msg': msg})
+        form = LoginForm()
+    
+    return render(request, 'accounts/login.html', context={'form': form, 'msg': msg})
+
 
 def register_user(request):
   msg = None
@@ -114,3 +118,12 @@ def google_auth_receiver(request):
         # Credential not provided in request, handle the error accordingly
         error_text = "Credential not provided"
         return render(request, 'accounts/error.html', context={'error': error_text}, status=400)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

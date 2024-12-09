@@ -130,3 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 # RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
 # RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'app/'

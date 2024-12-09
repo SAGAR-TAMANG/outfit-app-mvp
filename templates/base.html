@@ -33,5 +33,13 @@
   <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
   {% block javascript %}
   {% endblock %}
+  <script>
+    nav_btn = document.querySelector('.navbar-toggler');
+    main = document.querySelector('main');
+
+    nav_btn.addEventListener('click', () => {
+      main.classList.toggle('main');
+    });
+  </script>
 </body>
 </html>
