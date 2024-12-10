@@ -126,7 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 #   'account.backends.EmailBackend',
 # ]
 
-# AUTH_USER_MODEL = 'account.CustomUser'
+# AUTH_USER_MODEL = 'user_auth.CustomUser'
 
 # RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
 # RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')

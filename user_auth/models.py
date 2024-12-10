@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+from django.conf import settings
 
 class CustomUser(AbstractUser):
   email = models.EmailField(unique=True)
@@ -9,9 +10,14 @@ class CustomUser(AbstractUser):
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-  brand_preferences = models.TextField(blank=True, null=True)  # Example: "Nike, Adidas"
-  price_range = models.CharField(max_length=100, blank=True, null=True)  # Example: "$50-$100"
-  measurements = models.JSONField(blank=True, null=True)  # Example: {'chest': 38, 'waist': 32}
+
+  brand_preferences = models.JSONField(default=list)  # to store multiple brand preferences as a list
+  
+  price_range = models.IntegerField(default=500)  # stores the selected price range
+  
+  measurements = models.JSONField(default=dict)  # to store measurements with keys such as 'chest', 'waist', 'hips', 'shoulders', 'legs'
+  
+  preference = models.IntegerField(default=3)  # stores preference as an integer from 1 (tight) to 5 (oversized)
 
   def __str__(self):
-      return f"{self.user.username}'s Profile"
+    return f"{self.user.username}'s Profile"

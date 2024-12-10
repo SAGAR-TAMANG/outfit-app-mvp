@@ -27,9 +27,21 @@
   {% endblock %}
 </head>
 <body>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="autoHideToast" class="toast align-items-center text-bg-primary border-0" role="alert" 
+         aria-live="assertive" aria-atomic="true" 
+         data-bs-autohide="true" data-bs-delay="5000">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ message|default:"No Messages" }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+  </div>
   {% block content %}
   {% endblock %}
-  <script src="{% static 'js/htmx.min.js' %}"></script>
+  <script src="{% static 'js/htmx.min.js' %}" async></script>
   <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
   {% block javascript %}
   {% endblock %}
@@ -40,6 +52,14 @@
     nav_btn.addEventListener('click', () => {
       main.classList.toggle('main');
     });
+
+    // Toast
+    const toastElement = document.getElementById('autoHideToast');
+    const toast = new bootstrap.Toast(toastElement);
+    {% if message %}
+        toast.show();
+    {% endif %}
+
   </script>
 </body>
 </html>
