@@ -73,3 +73,17 @@ main {
   border-radius: 5px;
   transition: 600ms;
 }
+
+#nav-bottom i {
+  color: black;
+  transition: 500ms;
+}
+
+#nav-bottom i:active {
+  color: rgb(158, 158, 158);
+  transition: 200ms;
+}
+
+#details .card-img-top {
+  pointer-events: none; /* Disable mouse events */
+}

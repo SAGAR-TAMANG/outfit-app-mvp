@@ -1,0 +1,28 @@
+{% load static %}
+
+<div id="details">
+  <img class="card-img-top" src="/static/img/products/p-{{ suggest }}.jpeg" alt="Card image cap">
+  <div class="card-body">
+    {% if suggest == 1 %}
+      <p class="card-text">Product 1: A unique description for the first item.</p>
+    {% elif suggest == 2 %}
+      <p class="card-text">Product 2: A different description for the second item.</p>
+    {% elif suggest == 3 %}
+      <p class="card-text">Product 3: A distinct description for the third item.</p>
+    {% elif suggest == 4 %}
+      <p class="card-text">Product 4: A unique perspective on the fourth item.</p>
+    {% elif suggest == 5 %}
+      <p class="card-text">Product 5: A special take on the fifth item.</p>
+    {% elif suggest == 6 %}
+      <p class="card-text">Product 6: A unique viewpoint for the sixth item.</p>
+    {% elif suggest == 7 %}
+      <p class="card-text">Product 7: A distinct description for the seventh item.</p>
+    {% elif suggest == 8 %}
+      <p class="card-text">Product 8: A special take on the eighth item.</p>
+    {% elif suggest == 9 %}
+      <p class="card-text">Product 9: A unique description for the ninth item.</p>
+    {% else %}
+      <p class="card-text">Default text when no specific number is selected.</p>
+    {% endif %}
+  </div>
+</div>

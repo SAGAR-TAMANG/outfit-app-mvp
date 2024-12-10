@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat | Therapst AI{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+{% include 'includes/navbar.html' %}
+
+<main>
+  <div style="height: 60vh;" class="d-flex flex-column justify-content-center align-items-center">
+    <div>
+      <img src="{% static 'img/cart.webp' %}" alt="Cart" height="200px">
+    </div>
+    <div class="mt-3 text-center">
+      <p class="h5">Your Cart is Empty</p>
+    </div>
+  </div>
+</main>
+
+{% include 'includes/footer.html' %}
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

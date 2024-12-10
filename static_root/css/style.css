@@ -60,12 +60,30 @@ main {
   filter: blur(20px);
 }
 
-/* Custom styling for brand logos */
-.form-check-input:checked + label {
-  border: 2px solid #d1d1d1; /* Highlight border */
-  border-radius: 5px;
+/* Unchecked state of brand logos */
+.form-check-input:not(:checked) + label {
+  filter: grayscale(100%);
+  border: 2px solid white; /* Optionally remove any default borders */
+  transition: 200ms;
 }
 
-.form-check-input:checked + label .brand-logo img {
-  filter: brightness(0.6); /* Apply a black overlay */
+
+.form-check-input:checked + label {
+  border: 2px dotted #7e7e7e;
+  border-radius: 5px;
+  transition: 600ms;
+}
+
+#nav-bottom i {
+  color: black;
+  transition: 500ms;
+}
+
+#nav-bottom i:active {
+  color: rgb(158, 158, 158);
+  transition: 200ms;
+}
+
+#details .card-img-top {
+  pointer-events: none; /* Disable mouse events */
 }

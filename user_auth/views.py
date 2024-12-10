@@ -21,6 +21,7 @@ from google.oauth2 import id_token
 # Create your views here.
 def login_view(request):
     msg = None
+    msg2 = None
     redirect_url = request.GET.get('next', 'index')  # Default to 'index' if no 'next' parameter
     
     if request.method == 'POST':
@@ -34,7 +35,7 @@ def login_view(request):
                 # Redirect to 'next' if it's safe, otherwise redirect to 'index'
                 if url_has_allowed_host_and_scheme(redirect_url, allowed_hosts={request.get_host()}):
                     return redirect(redirect_url)
-                return redirect('index')
+                return render(request, 'index.html', context={'form': form, 'message': "Login Success"})
             else:
                 msg = 'Invalid username or password.'
         else:
@@ -42,11 +43,12 @@ def login_view(request):
     else:
         form = LoginForm()
     
-    return render(request, 'accounts/login.html', context={'form': form, 'msg': msg})
+    return render(request, 'accounts/login.html', context={'form': form, 'msg': msg, 'message': msg})
 
 
 def register_user(request):
   msg = None
+  msg2 = None
   
   if request.method == 'POST':
     form = SignUpForm(request.POST)
@@ -59,14 +61,17 @@ def register_user(request):
 
         user = authenticate(email=email, password=password1)
         msg='User created. Please <a href="/login">login</a> instead.'
+        msg2='User created. Please login instead.'
       except IntegrityError:
         msg='User already exists. Please <a href="/login">login</a> instead.'
+        msg2='User already exists. Please login instead.'
     else:
       msg='Error validating form. Please try again.'
+      msg2='Error validating form. Please try again.'
   
   form = SignUpForm()
   
-  return render(request, 'accounts/register.html', context={'form': form, 'msg': msg})
+  return render(request, 'accounts/register.html', context={'form': form, 'msg': msg, 'message': msg2})
 
 def logout_view(request):
   logout(request)

@@ -10,14 +10,120 @@
 {% include 'includes/navbar.html' %}
 
 <main>
-  <div class="container mt-5">
-    <h3>Welcome to App</h3>
+  <div class="container d-flex justify-content-center overflow-hidden">
+    <div class="card" style="width: 18rem;">
+      <div id="details">
+        <div id="inner-details">
+          <img class="card-img-top" src="{% static 'img/products/p-1.jpeg' %}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Product 1: A unique description for the first item.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
+
+<button id="next-suggestion" class="d-none" hx-get="new-suggestion/" hx-target="#inner-details" hx-swap="innerHTML">
+  Get New Suggestion
+</button>
+
+{% include 'includes/footer.html' %}
 
 {% endblock %}
 
 {% block javascript %}
 <script>
+  const card = document.getElementById('details');    
+  function getCard() {
+    const card = document.getElementById('details');    
+  }
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslateX = 0;
+  const threshold = 100; // Threshold for swipe action
+
+  // Handle mousedown (desktop) or touchstart (mobile)
+  card.addEventListener('mousedown', (event) => {
+      isDragging = true;
+      startX = event.type === 'mousedown' ? event.clientX : event.touches[0].clientX;
+  });
+
+  // Handle mousemove (desktop) or touchmove (mobile)
+  document.addEventListener('mousemove', (event) => {
+      if (!isDragging) return;
+      const x = event.type === 'mousemove' ? event.clientX : event.touches[0].clientX;
+      currentTranslateX = x - startX;
+      card.style.transform = `translateX(${currentTranslateX}px)`;
+  });
+
+  // Handle mouseup (desktop) or touchend (mobile)
+  document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      if (Math.abs(currentTranslateX) >= threshold) {
+          const direction = currentTranslateX > 0 ? 'yes' : 'no';
+          sendRequest(direction);
+          if (direction === 'yes' || direction === 'no') {
+              moveCardOut(direction);
+          }
+      } else {
+          resetCardPosition();
+      }
+      currentTranslateX = 0;
+  });
+
+  // For touch devices
+  card.addEventListener('touchstart', (event) => {
+      isDragging = true;
+      startX = event.touches[0].clientX;
+  });
+
+  card.addEventListener('touchmove', (event) => {
+      if (!isDragging) return;
+      const x = event.touches[0].clientX;
+      currentTranslateX = x - startX;
+      card.style.transform = `translateX(${currentTranslateX}px)`;
+  });
+
+  card.addEventListener('touchend', () => {
+      isDragging = false;
+      if (Math.abs(currentTranslateX) >= threshold) {
+          const direction = currentTranslateX > 0 ? 'yes' : 'no';
+          sendRequest(direction);
+          if (direction === 'yes' || direction === 'no') {
+              moveCardOut(direction);
+          }
+      } else {
+          resetCardPosition();
+      }
+      currentTranslateX = 0;
+  });
+
+  // Function to send GET request
+  function sendRequest(direction) {
+    console.log('Direction:', direction);
+  }
+
+  // Function to move the card out of the screen
+  function moveCardOut(direction) {
+      nextSuggestionBtn = document.getElementById('next-suggestion');
+      const translateX = direction === 'yes' ? '100vw' : '-100vw';
+      card.style.transition = 'transform 0.3s ease';
+      card.style.transform = `translateX(${translateX})`;        
+      setTimeout(() => {
+        nextSuggestionBtn.click();
+        resetCardPosition();
+      }, 300);
+  }
+
+  // Reset card position to center
+  function resetCardPosition() {
+      card.style.transition = 'transform 0.3s ease';
+      card.style.transform = 'translateX(0)';
+      setTimeout(() => {
+          card.style.transition = '';
+      }, 300);
+  }
 </script>
 {% endblock %}

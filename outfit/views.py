@@ -9,7 +9,6 @@ load_dotenv()
 def index(request):
   return render(request, 'index.html')
 
-
 @login_required
 def app(request):
     profile = request.user.profile
@@ -47,6 +46,20 @@ def app(request):
     else:
         return render(request, 'intro.html')  # Render an introductory form or page if not POST
 
+def suggest(request):
+  if request.method == 'GET':
+    random_number = random.randint(1, 9)
+    return render(request, 'alias/details.html', {'suggest': random_number})
+# return render(request, 'alias/details.html')
+
+def profile(request):
+  return render(request, 'profile.html')
+
+def cart(request):
+  return render(request, 'cart.html')
+
+def saved(request):
+  return render(request, 'saved.html')
 
 def handler500(request):
   return render(request, 'handler500.html', status=500)
