@@ -64,12 +64,12 @@ main {
 .form-check-input:not(:checked) + label {
   filter: grayscale(100%);
   border: 2px solid white; /* Optionally remove any default borders */
-  transition: 100ms;
+  transition: 200ms;
 }
 
 
 .form-check-input:checked + label {
-  border: 2px solid #7e7e7e;
+  border: 2px dotted #7e7e7e;
   border-radius: 5px;
-  transition: 100ms;
+  transition: 600ms;
 }

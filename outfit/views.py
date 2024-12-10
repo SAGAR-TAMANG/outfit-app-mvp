@@ -20,7 +20,7 @@ def app(request):
   else:
       form = UserProfileForm(instance=profile)
 
-  return render(request, 'app.html', {'form': form})
+  return render(request, 'intro.html', {'form': form})
 
 def handler500(request):
   return render(request, 'handler500.html', status=500)
