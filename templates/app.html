@@ -12,16 +12,155 @@
 <main>
   <div class="container mt-5">
     <h2>Complete Your Profile</h2>
+
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+      {% csrf_token %}
+  
+<!-- Brand Preferences -->
+<div class="mb-3">
+    <label for="brand_preferences" class="form-label">Brand Preferences</label>
+    <div id="brand_preferences" class="d-flex flex-wrap">
+        <!-- Nike -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_nike" name="brand_preferences" value="Nike" class="form-check-input visually-hidden">
+            <label for="brand_nike" class="brand-logo">
+                <img src="{% static 'img/brands/nike.webp' %}" alt="Nike" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Adidas -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_adidas" name="brand_preferences" value="Adidas" class="form-check-input visually-hidden">
+            <label for="brand_adidas" class="brand-logo">
+                <img src="{% static 'img/brands/adidas.webp' %}" alt="Adidas" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Puma -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_puma" name="brand_preferences" value="Puma" class="form-check-input visually-hidden">
+            <label for="brand_puma" class="brand-logo">
+                <img src="{% static 'img/brands/puma.webp' %}" alt="Puma" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Allen Solly -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_allen_solly" name="brand_preferences" value="Allen Solly" class="form-check-input visually-hidden">
+            <label for="brand_allen_solly" class="brand-logo">
+                <img src="{% static 'img/brands/allen-solly.webp' %}" alt="Allen Solly" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- American Eagle -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_american_eagle" name="brand_preferences" value="American Eagle" class="form-check-input visually-hidden">
+            <label for="brand_american_eagle" class="brand-logo">
+                <img src="{% static 'img/brands/american-eagle.webp' %}" alt="American Eagle" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Biba -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_biba" name="brand_preferences" value="Biba" class="form-check-input visually-hidden">
+            <label for="brand_biba" class="brand-logo">
+                <img src="{% static 'img/brands/biba.webp' %}" alt="Biba" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- GAP -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_gap" name="brand_preferences" value="Gap" class="form-check-input visually-hidden">
+            <label for="brand_gap" class="brand-logo">
+                <img src="{% static 'img/brands/gap.webp' %}" alt="Gap" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- H&M -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_hm" name="brand_preferences" value="H&M" class="form-check-input visually-hidden">
+            <label for="brand_hm" class="brand-logo">
+                <img src="{% static 'img/brands/h&m.webp' %}" alt="H&M" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Levi's -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_levi" name="brand_preferences" value="Levi's" class="form-check-input visually-hidden">
+            <label for="brand_levi" class="brand-logo">
+                <img src="{% static 'img/brands/levi\'s.webp' %}" alt="Levi's" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Raymond -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_raymond" name="brand_preferences" value="Raymond" class="form-check-input visually-hidden">
+            <label for="brand_raymond" class="brand-logo">
+                <img src="{% static 'img/brands/raymond.webp' %}" alt="Raymond" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- UNIZLO -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_unizlo" name="brand_preferences" value="UNIZLO" class="form-check-input visually-hidden">
+            <label for="brand_unizlo" class="brand-logo">
+                <img src="{% static 'img/brands/unizlo.webp' %}" alt="UNIZLO" class="img-thumbnail" width="100">
+            </label>
+        </div>
+        <!-- Zara -->
+        <div class="form-check m-2">
+            <input type="checkbox" id="brand_zara" name="brand_preferences" value="Zara" class="form-check-input visually-hidden">
+            <label for="brand_zara" class="brand-logo">
+                <img src="{% static 'img/brands/zara.webp' %}" alt="Zara" class="img-thumbnail" width="100">
+            </label>
+        </div>
+    </div>
 </div>
+
+  
+      <!-- Price Range -->
+      <div class="mb-3">
+          <label for="price_range" class="form-label">Price Range: 
+            $0 - <span id="priceOutput">$500</span>
+          </label>
+          <input type="range" id="price_range" name="price_range" 
+                 min="50" max="5000" step="50" 
+                 value="500" 
+                 class="form-range mb-2" 
+                 oninput="updatePriceOutput(this.value)">
+      </div>
+  
+      <!-- Measurements -->
+      <div class="mb-3">
+          <label for="measurements" class="form-label">Measurements</label>
+          <div>
+              <!-- Checklist options -->
+              <div class="form-check mb-2">
+                  <input type="checkbox" id="measurement_chest" name="measurements" value="chest" class="form-check-input">
+                  <label class="form-check-label" for="measurement_chest">Chest</label>
+              </div>
+              <div class="form-check mb-2">
+                  <input type="checkbox" id="measurement_waist" name="measurements" value="waist" class="form-check-input">
+                  <label class="form-check-label" for="measurement_waist">Waist</label>
+              </div>
+              <div class="form-check mb-2">
+                  <input type="checkbox" id="measurement_hips" name="measurements" value="hips" class="form-check-input">
+                  <label class="form-check-label" for="measurement_hips">Hips</label>
+              </div>
+              <div class="form-check mb-2">
+                  <input type="checkbox" id="measurement_shoulders" name="measurements" value="shoulders" class="form-check-input">
+                  <label class="form-check-label" for="measurement_shoulders">Shoulders</label>
+              </div>
+              <div class="form-check mb-2">
+                  <input type="checkbox" id="measurement_legs" name="measurements" value="legs" class="form-check-input">
+                  <label class="form-check-label" for="measurement_legs">Legs</label>
+              </div>
+          </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>  
+  </div>
 </main>
 
 {% endblock %}
 
 {% block javascript %}
 <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
+
+<script>
+  function updatePriceOutput(value) {
+    document.getElementById('priceOutput').innerText = `$${value}`;
+  }
+</script>
 {% endblock %}

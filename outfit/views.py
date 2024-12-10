@@ -27,4 +27,3 @@ def handler500(request):
 
 def handler404(request, exception):
   return render(request, 'handler404.html', status=404)
-
