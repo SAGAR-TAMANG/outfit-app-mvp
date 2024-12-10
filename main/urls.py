@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path('', include('pwa.urls')),    # PWA
     path('admin/', admin.site.urls),
     path('', include('outfit.urls')),
     path('', include('user_auth.urls')),

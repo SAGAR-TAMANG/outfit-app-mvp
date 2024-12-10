@@ -1,1 +1,1 @@
-web: daphne -b 0.0.0.0 -p $PORT main.wsgi:application
+web: gunicorn main.wsgi --log-file=- 
