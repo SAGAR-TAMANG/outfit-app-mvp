@@ -178,3 +178,8 @@ PWA_APP_SHORTCUTS = [
         'description': 'Just Wear It!'
     }
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://wearit.feynmanpi.com',
+    'https://www.wearit.feynmanpi.com',
+]
