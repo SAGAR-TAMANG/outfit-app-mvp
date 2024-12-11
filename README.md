@@ -32,9 +32,9 @@
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/SAGAR-TAMANG/outfit-app-mvp/static/img/ss2.png">
+<img src="https://raw.githubusercontent.com/SAGAR-TAMANG/outfit-app-mvp/master/static/img/ss2.png">
 
-<img src="https://raw.githubusercontent.com/SAGAR-TAMANG/outfit-app-mvp/static/img/ss.png">
+<img src="https://raw.githubusercontent.com/SAGAR-TAMANG/outfit-app-mvp/master/static/img/ss.png">
 
 <!-- TABLE OF CONTENTS -->
 <details>
